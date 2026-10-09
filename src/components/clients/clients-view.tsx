@@ -47,6 +47,7 @@ export default function ClientsView() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   return (
     <div className="flex flex-col gap-8">
+      
       <header className="flex items-start justify-between gap-4">
         <div className="flex flex-col gap-1">
           <h1 className="text-h1">Clients</h1>

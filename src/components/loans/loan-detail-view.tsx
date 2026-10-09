@@ -26,11 +26,12 @@ import {
     loanStatusTone,
 } from "@/types/loan";
 import LoanSchedule from "./loan-schedule";
-import { useRescheduleLoan } from "@/hooks/use-loans";
+// import { useRescheduleLoan } from "@/hooks/use-loans";
 import RescheduleLoanForm from "./reschedule-loan-form";
 import { PRIVILEGED_ROLES } from "@/types/auth";
-import { getLoanPassbookUrl } from "@/services/loans.service";
+// import { getLoanPassbookUrl } from "@/services/loans.service";
 import { IconlyPaper } from "../ui/icons";
+import BackButton from "../ui/back-button";
 
 
 export default function LoanDetailView({ loanId }: { loanId: string }) {
@@ -94,7 +95,7 @@ export default function LoanDetailView({ loanId }: { loanId: string }) {
         <div className="flex flex-col gap-6">
             {notice && <Alert type="success" message={notice} onClose={() => setNotice(null)} />}
             {actionError && <Alert type="error" message={actionError} onClose={() => setActionError(null)} />}
-
+<BackButton />
             <div className="flex items-start justify-between gap-4">
                 <div>
                     <h1 className="text-h1">{loan.loanNumber}</h1>

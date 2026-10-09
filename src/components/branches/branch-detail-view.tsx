@@ -5,6 +5,8 @@ import Button from "@/components/ui/button";
 import Skeleton from "@/components/ui/skeleton";
 import { useBranch, useBranchStats } from "@/hooks/use-branches";
 import { getErrorMessage } from "@/lib/api/errors";
+import BackButton from "@/components/ui/back-button";
+
 
 export default function BranchDetailView({ id }: { id: string }) {
   const { data: branch, isPending, isError, error, refetch } = useBranch(id);
@@ -23,6 +25,7 @@ export default function BranchDetailView({ id }: { id: string }) {
 
   return (
     <div className="flex flex-col gap-6">
+      <BackButton />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-h1">

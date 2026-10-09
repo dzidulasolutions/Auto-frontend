@@ -18,6 +18,8 @@ import ClientTransactions from "@/components/transactions/client-transactions";
 import ClientSavings from "@/components/savings/client-savings";
 import ClientTontines from "@/components/tontines/client-tontines";
 import ClientLoans from "@/components/loans/client-loans";
+import BackButton from "@/components/ui/back-button";
+
 
 export default function ClientDetailView({ id, area }: { id: string; area: string }) {
   const router = useRouter();
@@ -62,6 +64,8 @@ export default function ClientDetailView({ id, area }: { id: string; area: strin
       {deleteError && (
         <Alert type="error" message={deleteError} onClose={() => setDeleteError(null)} />
       )}
+
+      <BackButton />
 
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-4 min-w-0">

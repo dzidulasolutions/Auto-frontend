@@ -9,6 +9,8 @@ import Skeleton from "@/components/ui/skeleton";
 import { useAllTontines } from "@/hooks/use-tontines";
 import { getErrorMessage } from "@/lib/api/errors";
 import { CYCLE_STATUS_LABELS } from "@/types/tontine";
+import SegmentedControl from "@/components/ui/segmented-control";
+
 
 interface Props {
   area: string;
@@ -27,21 +29,17 @@ export default function TontinesView({ area }: Props) {
         {data && <p className="text-small text-muted">{data.meta.total} cycles</p>}
       </header>
 
-      <Select
-        placeholder="Tous les statuts"
-        value={status}
-        onChange={(e) => {
-          setStatus(e.target.value);
-          setPage(1);
-        }}
-      >
-        <option value="">Tous les statuts</option>
-        {Object.entries(CYCLE_STATUS_LABELS).map(([value, label]) => (
-          <option key={value} value={value}>
-            {label}
-          </option>
-        ))}
-      </Select>
+<SegmentedControl
+  value={status || "ALL"}
+  onChange={(v) => {
+    setStatus(v === "ALL" ? "" : v);
+    setPage(1);
+  }}
+  options={[
+    { value: "ALL", label: "Tous" },
+    ...Object.entries(CYCLE_STATUS_LABELS).map(([value, label]) => ({ value, label })),
+  ]}
+/>
 
       {isPending && (
         <div className="flex flex-col gap-2">

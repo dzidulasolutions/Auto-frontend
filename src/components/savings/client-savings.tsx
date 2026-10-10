@@ -10,6 +10,8 @@ import { useCreateSavingsAccount } from "@/hooks/use-create-savings-account";
 import { useSavingsAccount } from "@/hooks/use-savings-account";
 import { getErrorMessage } from "@/lib/api/errors";
 import SavingsOperationForm from "./savings-operation-form";
+import SectionTitle from "../ui/section-title";
+import { IconlyDiscount } from "../ui/icons";
 
 export default function ClientSavings({ clientId }: { clientId: string }) {
   const { data: account, isPending, isError, error, refetch } = useSavingsAccount(clientId);
@@ -44,7 +46,7 @@ export default function ClientSavings({ clientId }: { clientId: string }) {
       <div className="bg-white p-5 flex flex-col items-start gap-3">
         {createError && <Alert type="error" message={createError} onClose={() => setCreateError(null)} />}
         <div>
-          <h2 className="text-h2">Épargne</h2>
+          <SectionTitle icon={IconlyDiscount} color="#d97706">Épargne</SectionTitle>
           <p className="text-small text-muted mt-1">Ce client n&apos;a pas encore de compte épargne.</p>
         </div>
         <Button

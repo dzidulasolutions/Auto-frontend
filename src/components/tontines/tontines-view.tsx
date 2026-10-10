@@ -29,17 +29,17 @@ export default function TontinesView({ area }: Props) {
         {data && <p className="text-small text-muted">{data.meta.total} cycles</p>}
       </header>
 
-<SegmentedControl
-  value={status || "ALL"}
-  onChange={(v) => {
-    setStatus(v === "ALL" ? "" : v);
-    setPage(1);
-  }}
-  options={[
-    { value: "ALL", label: "Tous" },
-    ...Object.entries(CYCLE_STATUS_LABELS).map(([value, label]) => ({ value, label })),
-  ]}
-/>
+      <SegmentedControl
+        value={status || "ALL"}
+        onChange={(v) => {
+          setStatus(v === "ALL" ? "" : v);
+          setPage(1);
+        }}
+        options={[
+          { value: "ALL", label: "Tous" },
+          ...Object.entries(CYCLE_STATUS_LABELS).map(([value, label]) => ({ value, label })),
+        ]}
+      />
 
       {isPending && (
         <div className="flex flex-col gap-2">
@@ -66,26 +66,62 @@ export default function TontinesView({ area }: Props) {
 
       {data && data.items.length > 0 && (
         <>
-          <div className="flex flex-col gap-2">
-            {data.items.map((cycle) => (
-              <button
-                key={cycle.id}
-                onClick={() => router.push(`${area}/clients/${cycle.clientId}`)}
-                className="w-full bg-white px-4 py-3 flex items-center justify-between gap-3 text-left hover:bg-surface transition-colors"
-              >
-                <div>
-                  <p className="text-body font-medium">
-                    {cycle.client.firstName} {cycle.client.lastName}
-                  </p>
-                  <p className="text-caption text-muted">
-                    {cycle.cycleNumber} · {Number(cycle.amountPerCollection).toLocaleString("fr-FR")} FCFA
-                  </p>
-                </div>
-                <Badge tone={cycle.status === "ACTIVE" ? "neutral" : "success"}>
-                  {CYCLE_STATUS_LABELS[cycle.status] ?? cycle.status}
-                </Badge>
-              </button>
-            ))}
+
+
+          <div className="w-full space-y-3">
+            {/* En-tête : visible sur tablette et ordinateur */}
+            <div className="hidden sm:grid sm:grid-cols-[1.5fr_1.5fr_1.5fr_1fr] items-center gap-4 px-4 text-xs font-medium uppercase tracking-wide text-muted">
+              <span>Client</span>
+              <span>Cycle</span>
+              <span>Montant</span>
+              <span className="text-right">Statut</span>
+            </div>
+
+            {/* Liste des cycles */}
+            <div className="flex flex-col gap-2">
+              {data.items.map((cycle) => (
+                <button
+                  key={cycle.id}
+                  type="button"
+                  onClick={() => router.push(`${area}/clients/${cycle.clientId}`)}
+                  className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 bg-white px-4 py-3 text-left transition-colors hover:bg-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:grid-cols-[1.5fr_1.5fr_1.5fr_1fr] sm:gap-4"
+                >
+                  {/* Client */}
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium text-body">
+                      {cycle.client.firstName} {cycle.client.lastName}
+                    </p>
+                  </div>
+
+                  {/* Cycle */}
+                  <div className="col-start-1 row-start-2 sm:col-auto sm:row-auto">
+                    <p className="text-xs text-muted sm:text-sm sm:text-body">
+                      <span className="sm:hidden">Cycle : </span>
+                      {cycle.cycleNumber}
+                    </p>
+                  </div>
+
+                  {/* Montant */}
+                  <div className="col-start-1 row-start-3 min-w-0 sm:col-auto sm:row-auto">
+                    <p className="text-sm font-medium text-body">
+                      <span className="mr-1 text-xs font-normal text-muted sm:hidden">
+                        Montant :
+                      </span>
+                      {Number(cycle.amountPerCollection).toLocaleString("fr-FR")} FCFA
+                    </p>
+                  </div>
+
+                  {/* Statut */}
+                  <div className="col-start-2 row-start-1 flex justify-end sm:col-auto sm:row-auto">
+                    <Badge
+                      tone={cycle.status === "ACTIVE" ? "neutral" : "success"}
+                    >
+                      {CYCLE_STATUS_LABELS[cycle.status] ?? cycle.status}
+                    </Badge>
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
 
           {data.meta.totalPages > 1 && (

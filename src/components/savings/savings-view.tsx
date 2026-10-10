@@ -47,8 +47,13 @@ export default function SavingsView({ area }: Props) {
         </div>
       )}
 
+
       {data && data.items.length > 0 && (
         <>
+          <div className="px-4 grid grid-cols-[2fr_1fr] gap-4 text-xs uppercase tracking-wide text-muted">
+            <span>Client</span>
+            <span className="text-right">Solde</span>
+          </div>
           <div className="flex flex-col gap-2">
             {data.items.map((account) => (
               <button
@@ -66,30 +71,6 @@ export default function SavingsView({ area }: Props) {
               </button>
             ))}
           </div>
-
-          {data.meta.totalPages > 1 && (
-            <div className="flex items-center justify-between text-small">
-              <Button
-                variant="secondary"
-                size="sm"
-                disabled={page <= 1}
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-              >
-                Précédent
-              </Button>
-              <span className="text-muted">
-                Page {data.meta.page} sur {data.meta.totalPages}
-              </span>
-              <Button
-                variant="secondary"
-                size="sm"
-                disabled={page >= data.meta.totalPages}
-                onClick={() => setPage((p) => p + 1)}
-              >
-                Suivant
-              </Button>
-            </div>
-          )}
         </>
       )}
     </div>

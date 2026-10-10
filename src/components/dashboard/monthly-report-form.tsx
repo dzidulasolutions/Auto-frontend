@@ -8,6 +8,8 @@ import { useBranches } from "@/hooks/use-branches";
 import { useCurrentRole } from "@/hooks/use-current-role";
 import { useRequestReport, useReportStatus } from "@/hooks/use-reports";
 import { getErrorMessage } from "@/lib/api/errors";
+import SectionTitle from "@/components/ui/section-title";
+import {  IconlyDocument } from "@/components/ui/icons";
 
 const MONTHS = [
   "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
@@ -46,7 +48,7 @@ export default function MonthlyReportForm() {
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-h2">Rapport mensuel</h2>
+      <SectionTitle icon={IconlyDocument} color="#9333ea">Rapport mensuel</SectionTitle>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <Select placeholder="Choisir une agence" value={branchId} onChange={(e) => setBranchId(e.target.value)}>

@@ -8,6 +8,9 @@ import ExpandableList from "@/components/ui/expandable-list";
 import Skeleton from "@/components/ui/skeleton";
 import { usePortfolioAtRisk } from "@/hooks/use-dashboard";
 import { getErrorMessage } from "@/lib/api/errors";
+import SectionTitle from "@/components/ui/section-title";
+import { IconlyWallet } from "@/components/ui/icons";
+
 
 export default function PortfolioAtRiskView({ area }: { area: string }) {
   const router = useRouter();
@@ -15,7 +18,7 @@ export default function PortfolioAtRiskView({ area }: { area: string }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-h2">Portefeuille à risque</h2>
+      <SectionTitle icon={IconlyWallet} color="#dc2626">Portefeuille à risque</SectionTitle>
 
       {isPending && <Skeleton className="h-32 w-full" />}
 

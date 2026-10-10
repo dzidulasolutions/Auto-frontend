@@ -12,7 +12,8 @@ import { CYCLE_STATUS_LABELS } from "@/types/tontine";
 import CreateTontineForm from "./create-tontine-form";
 import TontinePassbook from "./tontine-passbook";
 import ExpandableList from "@/components/ui/expandable-list";
-
+import SectionTitle from "../ui/section-title";
+import { IconlyGraph } from "../ui/icons";
 
 export default function ClientTontines({ clientId }: { clientId: string }) {
   const { data, isPending, isError, error, refetch } = useTontinesByClient(clientId);
@@ -23,9 +24,9 @@ export default function ClientTontines({ clientId }: { clientId: string }) {
   return (
     <div className="flex flex-col gap-4">
       {notice && <Alert type="success" message={notice} onClose={() => setNotice(null)} />}
-
+c
       <div className="flex items-center justify-between">
-        <h2 className="text-h2">Tontines</h2>
+        <SectionTitle icon={IconlyGraph} color="#9333ea">Tontines</SectionTitle>
         <Button size="sm" onClick={() => setCreateOpen(true)}>
           Nouveau cycle
         </Button>

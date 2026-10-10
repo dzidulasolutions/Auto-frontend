@@ -11,6 +11,8 @@ import { useLoansByClient } from "@/hooks/use-loans";
 import { getErrorMessage } from "@/lib/api/errors";
 import { LOAN_STATUS_LABELS, loanStatusTone } from "@/types/loan";
 import CreateLoanForm from "./create-loan-form";
+import SectionTitle from "../ui/section-title";
+import { IconlyWallet } from "../ui/icons";
 
 interface Props {
   clientId: string;
@@ -27,7 +29,7 @@ export default function ClientLoans({ clientId, onOpenLoan }: Props) {
       {notice && <Alert type="success" message={notice} onClose={() => setNotice(null)} />}
 
       <div className="flex items-center justify-between">
-        <h2 className="text-h2">Prêts</h2>
+        <SectionTitle icon={IconlyWallet} color="#2563eb">Prêts</SectionTitle>
         <Button size="sm" onClick={() => setCreateOpen(true)}>
           Nouvelle demande
         </Button>

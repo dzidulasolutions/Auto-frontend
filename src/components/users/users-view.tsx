@@ -67,48 +67,88 @@ export default function UsersView() {
       )}
 
       {users && users.length > 0 && (
-        <div className="flex flex-col gap-2">
-          {users.map((u) => (
-            <div key={u.id} className="bg-white px-4 py-3 flex items-center justify-between gap-3">
-              <div className="min-w-0">
-                <p className="text-body font-medium truncate">
-                  {u.firstName} {u.lastName}
-                </p>
-                <p className="text-caption text-muted truncate">{u.email} · {u.role.name}</p>
-              </div>
 
-              <div className="flex items-center gap-2 shrink-0">
-                <Badge tone={u.status === "ACTIVE" ? "success" : "neutral"}>
-                  {u.status === "ACTIVE" ? "Actif" : "Désactivé"}
-                </Badge>
-                {u.status === "ACTIVE" ? (
-                  <button
-                    type="button"
-                    onClick={() => setConfirmUser(u)}
-                    aria-label="Désactiver"
-                    className="text-muted hover:text-error transition-colors"
-                  >
-                    <IconlyTrash size={16} color="currentColor" />
-                  </button>
-                ) : (
-                  <Button
-                    size="sm"
-                    loading={reactivatingId === u.id}
-                    onClick={() => {
-                      setReactivatingId(u.id);
-                      reactivate(u.id, {
-                        onSuccess: () => setNotice("Utilisateur réactivé."),
-                        onSettled: () => setReactivatingId(null),
-                      });
-                    }}
-                  >
-                    Réactiver
-                  </Button>
-                )}
+        <>
+          {/* En-tête : visible sur tablette et ordinateur */}
+          <div className="hidden sm:grid sm:grid-cols-[1.4fr_1.8fr_1fr_1fr_auto] items-center gap-4 px-4 text-xs font-medium uppercase tracking-wide text-muted">
+            <span>Utilisateur</span>
+            <span>Rôle</span>
+            <span>Statut</span>
+            <span className="text-right">Actions</span>
+          </div>
+
+          {/* Liste des utilisateurs */}
+          <div className="flex flex-col gap-2">
+            {users.map((u) => (
+              <div
+                key={u.id}
+                className="grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-3 rounded-lg border border-border bg-white px-4 py-3 sm:grid-cols-[1.4fr_1.8fr_1fr_1fr_auto] sm:gap-4"
+              >
+                {/* Utilisateur */}
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium text-body">
+                    {u.firstName} {u.lastName}
+                  </p>
+                  <p className="text-xs text-muted sm:hidden">
+                    Utilisateur
+                  </p>
+                </div>
+
+                {/* Statut : en haut à droite sur mobile */}
+                <div className="col-start-2 row-start-1 flex justify-end sm:col-auto sm:row-auto sm:justify-start">
+                  <Badge tone={u.status === "ACTIVE" ? "success" : "neutral"}>
+                    {u.status === "ACTIVE" ? "Actif" : "Désactivé"}
+                  </Badge>
+                </div>
+
+                {/* Email */}
+                <div className="col-start-1 row-start-2 min-w-0 sm:col-auto sm:row-auto">
+                  <p className="truncate text-sm text-body">
+                    {u.email}
+                  </p>
+                  <p className="text-xs text-muted sm:hidden">Email</p>
+                </div>
+
+                {/* Rôle */}
+                <div className="col-start-1 row-start-3 sm:col-auto sm:row-auto">
+                  <p className="text-sm text-body">
+                    <span className="mr-1 text-xs text-muted sm:hidden">Rôle :</span>
+                    {u.role.name}
+                  </p>
+                </div>
+
+                {/* Actions */}
+                <div className="col-start-2 row-start-3 flex items-center justify-end gap-2 sm:col-auto sm:row-auto">
+                  {u.status === "ACTIVE" ? (
+                    <button
+                      type="button"
+                      onClick={() => setConfirmUser(u)}
+                      aria-label={`Désactiver ${u.firstName} ${u.lastName}`}
+                      title="Désactiver l'utilisateur"
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-md text-muted transition-colors hover:bg-surface hover:text-error focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    >
+                      <IconlyTrash size={16} color="currentColor" />
+                    </button>
+                  ) : (
+                    <Button
+                      size="sm"
+                      loading={reactivatingId === u.id}
+                      onClick={() => {
+                        setReactivatingId(u.id);
+                        reactivate(u.id, {
+                          onSuccess: () => setNotice("Utilisateur réactivé."),
+                          onSettled: () => setReactivatingId(null),
+                        });
+                      }}
+                    >
+                      Réactiver
+                    </Button>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </>
       )}
 
       <Modal open={createOpen} onClose={() => setCreateOpen(false)} title="Nouvel utilisateur" variant="drawer">

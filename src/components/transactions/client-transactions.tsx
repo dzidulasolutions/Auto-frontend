@@ -6,6 +6,8 @@ import { getErrorMessage } from "@/lib/api/errors";
 import TransactionRow from "./transaction-row";
 import TransactionsListSkeleton from "./transactions-list-skeleton";
 import ExpandableList from "@/components/ui/expandable-list";
+import SectionTitle from "../ui/section-title";
+import { IconlyActivity } from "../ui/icons";
 
 
 export default function ClientTransactions({ clientId }: { clientId: string }) {
@@ -13,10 +15,9 @@ export default function ClientTransactions({ clientId }: { clientId: string }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-h2">Transactions</h2>
-
-      {isPending && <TransactionsListSkeleton />}
-
+<SectionTitle icon={IconlyActivity} color="#16a34a">Transactions</SectionTitle>
+      {isPending && <TransactionsListSkeleton />} 
+      
       {isError && (
         <div className="bg-white p-4 flex flex-col items-start gap-3">
           <p className="text-small">{getErrorMessage(error)}</p>

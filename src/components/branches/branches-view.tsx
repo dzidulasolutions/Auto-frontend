@@ -67,52 +67,65 @@ export default function BranchesView() {
       )}
 
       {branches && branches.length > 0 && (
-        <div className="flex flex-col gap-2">
-          {branches.map((b) => (
-            <div key={b.id} className="relative bg-white px-4 py-3 flex items-center justify-between gap-3">
-              <Link href={`/admin/branches/${b.id}`} className="absolute inset-0" aria-label={b.name} />
+        <>
 
-              <div className="relative pointer-events-none">
-                <p className="text-body font-medium">
-                  {b.name} — {b.code}
-                </p>
-                <p className="text-caption text-muted">{b.city}</p>
-              </div>
-
-              <div className="relative z-10 flex items-center gap-2 shrink-0">
-                <Badge tone={b.status === "ACTIVE" ? "success" : "neutral"}>
-                  {b.status === "ACTIVE" ? "Active" : "Désactivée"}
-                </Badge>
-                {b.status === "ACTIVE" ? (
-                  <>
-                    <Button variant="secondary" size="sm" onClick={() => setEditBranch(b)}>
-                      <IconlyEdit size={16} color="currentColor" />
-                      <span className="hidden sm:inline">Modifier</span>
-                    </Button>
-                    <Button variant="danger" size="sm" onClick={() => setConfirmBranch(b)}>
-                      <IconlyTrash size={16} color="currentColor" />
-                      <span className="hidden sm:inline">Désactiver</span>
-                    </Button>
-                  </>
-                ) : (
-                  <Button
-                    size="sm"
-                    loading={reactivatingId === b.id}
-                    onClick={() => {
-                      setReactivatingId(b.id);
-                      reactivate(b.id, {
-                        onSuccess: () => setNotice("Agence réactivée."),
-                        onSettled: () => setReactivatingId(null),
-                      });
-                    }}
-                  >
-                    Réactiver
-                  </Button>
-                )}
-              </div>
+          <div className="px-4 grid grid-cols-[2fr_1fr_1fr] gap-4 text-xs uppercase tracking-wide text-muted">
+            <span>Agence</span>
+            <span></span>
+            <div className="flex items-center gap-12 justify-end">
+              <span>Statut</span>
+              <span className="text-right">Actions</span>
             </div>
-          ))}
-        </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            {branches.map((b) => (
+              <div key={b.id} className="relative bg-white px-4 py-3 flex items-center justify-between gap-3">
+                <Link href={`/admin/branches/${b.id}`} className="absolute inset-0" aria-label={b.name} />
+
+                <div className="relative pointer-events-none">
+                  <p className="text-body font-medium">
+                    {b.name} — {b.code}
+                  </p>
+                  <p className="text-caption text-muted">{b.city}</p>
+                </div>
+
+                <div className="relative z-10 flex items-center gap-2 shrink-0">
+                  <Badge tone={b.status === "ACTIVE" ? "success" : "neutral"}>
+                    {b.status === "ACTIVE" ? "Active" : "Désactivée"}
+                  </Badge>
+                  {b.status === "ACTIVE" ? (
+                    <>
+                      <Button variant="secondary" size="sm" onClick={() => setEditBranch(b)}>
+                        <IconlyEdit size={16} color="currentColor" />
+                        <span className="hidden sm:inline">Modifier</span>
+                      </Button>
+                      <Button variant="danger" size="sm" onClick={() => setConfirmBranch(b)}>
+                        <IconlyTrash size={16} color="currentColor" />
+                        <span className="hidden sm:inline">Désactiver</span>
+                      </Button>
+                    </>
+                  ) : (
+                    <Button
+                      size="sm"
+                      loading={reactivatingId === b.id}
+                      onClick={() => {
+                        setReactivatingId(b.id);
+                        reactivate(b.id, {
+                          onSuccess: () => setNotice("Agence réactivée."),
+                          onSettled: () => setReactivatingId(null),
+                        });
+                      }}
+                    >
+                      Réactiver
+                    </Button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </>
       )}
 
       <Modal open={createOpen} onClose={() => setCreateOpen(false)} title="Nouvelle agence" variant="drawer">

@@ -6,6 +6,9 @@ import Button from "@/components/ui/button";
 import Skeleton from "@/components/ui/skeleton";
 import { useMyDailyCollections } from "@/hooks/use-dashboard";
 import { getErrorMessage } from "@/lib/api/errors";
+import SectionTitle from "@/components/ui/section-title";
+import { IconlyActivity } from "@/components/ui/icons";
+
 
 const TYPE_LABELS: Record<string, string> = {
   TONTINE: "Tontine",
@@ -17,7 +20,7 @@ export default function DailyCollectionsView() {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-h1">Collectes du jour</h1>
+      <SectionTitle as="h1" icon={IconlyActivity} color="#16a34a">Collectes du jour</SectionTitle>
 
       {isPending && <Skeleton className="h-32 w-full" />}
 

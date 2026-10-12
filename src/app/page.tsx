@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image"
-import Logo from "../../public/vercel.svg"
+import Logo from "../../public/vercel.png"
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 

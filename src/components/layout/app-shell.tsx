@@ -3,6 +3,8 @@ import type { SessionUser } from "@/types/auth";
 import LogoutButton from "./logout-button";
 import NavLinks from "./nav-links";
 import Link from "next/link";
+import InstallButton from "@/components/pwa/install-button";
+
 
 interface Props {
   area: Area;
@@ -24,6 +26,7 @@ export default function AppShell({ area, user, focus, isClient, children }: Prop
           <div className="font-bold text-xl mb-10">Autogo.</div>
           <NavLinks area={area} variant="sidebar" />
         </div>
+        <InstallButton className="w-full justify-center" />
         <div className="flex flex-col gap-3">
           {isClient ? (
             <div className="flex flex-col gap-0.5 px-3 py-2">
@@ -51,19 +54,20 @@ export default function AppShell({ area, user, focus, isClient, children }: Prop
         {/* Mobile : barre du haut */}
         <header className="lg:hidden sticky top-0 z-10 h-14 px-4 bg-black text-white flex items-center justify-between">
           <span className="font-bold text-lg">Autogo.</span>
+          <InstallButton />
           <div className="flex items-center gap-4">
             {isClient ? (
-  <span className="text-xs text-white/60">{user.firstName}</span>
-) : (
-  <Link
-    href="/profil"
-    className="flex flex-col items-end leading-tight bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded-control transition-colors"
-  >
-    <span className="text-xs text-white">{user.firstName}</span>
-    <span className="text-[10px] text-white/60">{user.label}</span>
-  </Link>
-)}
-<LogoutButton iconOnly className="text-white/60 hover:text-white transition-colors" />          </div>
+              <span className="text-xs text-white/60">{user.firstName}</span>
+            ) : (
+              <Link
+                href="/profil"
+                className="flex flex-col items-end leading-tight bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded-control transition-colors"
+              >
+                <span className="text-xs text-white">{user.firstName}</span>
+                <span className="text-[10px] text-white/60">{user.label}</span>
+              </Link>
+            )}
+            <LogoutButton iconOnly className="text-white/60 hover:text-white transition-colors" />          </div>
         </header>
 
         <main className={`w-full mx-auto flex-1 p-4 pb-24 lg:p-8 lg:pb-8 ${width}`}>

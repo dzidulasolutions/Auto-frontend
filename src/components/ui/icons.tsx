@@ -246,3 +246,15 @@ export const IconlyLoader = ({ size = 24, color = "#000000" }: IconlyIconProps) 
 		</svg>
       ) 
   }
+
+
+  
+  export const IconlyDownload = ({ size = 24, color = "#000000" }: IconlyIconProps) => {
+      return (
+		<svg width={size} height={size} viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M12.2497 15.935V3.15723" stroke={color} strokeWidth="1.5" strokeLinecap="square"></path>
+		<path d="M8.9751 13.395L12.2501 16.6846L15.5261 13.395" stroke={color} strokeWidth="1.5" strokeLinecap="square"></path>
+		<path d="M16.875 9.41406H21.5V20.8429H3V9.41406H7.625" stroke={color} strokeWidth="1.5" strokeLinecap="square"></path>
+		</svg>
+      ) 
+  }

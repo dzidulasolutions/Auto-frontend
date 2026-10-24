@@ -9,6 +9,6 @@ services:
     envVars:
       - key: NODE_VERSION
         value: 20.18.0
-      - key: BACKEND_URL
+      - key: https://autogo-79vw.onrender.com/api/docs
         sync: false
     autoDeploy: true
